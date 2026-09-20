@@ -1,0 +1,49 @@
+schema_version: syntharian-verification-contract-v1
+repository: "omniskengy-wq/Trend-Rebalance-Map-Herman-"
+status: provisional
+
+worker_pre_pr:
+  commands:
+    []
+  notes:
+    - "No worker-safe command set is independently certified yet; product_enabled must remain false until HQ certifies this contract."
+
+exact_head:
+  provider: github_actions
+  runner_labels:
+    - self-hosted
+    - Linux
+    - X64
+    - syntharian
+  required_checks:
+    []
+  exact_sha_required: true
+  notes:
+    - "NOT_REEXERCISED during reconciliation"
+
+secondary:
+  provider: circleci
+  preserved: true
+  required_for_merge: false
+  checks:
+    []
+  notes:
+    - "NOT_REEXERCISED"
+
+specialist_gates:
+  - "repository-native gates preserved"
+forbidden_actions:
+  - "access secrets or .env files"
+  - "push, merge, deploy, release, sign, broadcast, move funds, or mutate live capital"
+  - "perform destructive production database or infrastructure mutations during verification"
+  - "weaken tests, safety gates, evidence requirements, risk limits, or fail-closed behavior to manufacture green"
+forbidden_paths:
+  []
+evidence_requirements:
+  - "worker pre-PR proof and exact-head certification must remain distinct"
+  - "all required GitHub checks must genuinely execute on the exact published SHA before certification"
+  - "queued, skipped-without-authority, stale, or superseded checks are never represented as green"
+  - "CircleCI secondary failures remain visible and diagnosable even when primary GitHub certification passes"
+notes:
+  - "CI estate classification: DOCTRINE_ALREADY_COMPLIANT"
+  - "Provisional only; product authority remains disabled."
